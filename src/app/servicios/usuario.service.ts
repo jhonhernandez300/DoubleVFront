@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { iTareaDTO } from '../interfaces/iTareaDTO';
+import { iUsuario } from '../interfaces/iUsuario';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TareaService {
-  private apiUrl = 'https://localhost:7136/api/Tareas'; 
+export class UsuarioService {
+
+  private apiUrl = 'https://localhost:7136/api/Usuarios'; 
 
   constructor(private http: HttpClient) { }
 
-  CrearTarea(tarea: iTareaDTO): Observable<any> {         
-    console.log(tarea);
-    return this.http.post(`${this.apiUrl}/CrearTarea`, tarea).pipe(
+  ObtenerTodosLosUsuariosAsync(): Observable<any> {             
+    return this.http.get(`${this.apiUrl}/ObtenerTodosLosUsuariosAsync`).pipe(
       catchError(error => {
           console.error('Request error:', error);
           return throwError(error);

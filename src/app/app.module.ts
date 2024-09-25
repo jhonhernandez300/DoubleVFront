@@ -22,11 +22,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CrearTareaComponent } from './componentes/tareas/crear-tarea/crear-tarea.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ObtenerTodosComponent } from './componentes/usuarios/obtener-todos/obtener-todos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrearTareaComponent
+    CrearTareaComponent,
+    ObtenerTodosComponent
   ],
   imports: [
     BrowserModule,

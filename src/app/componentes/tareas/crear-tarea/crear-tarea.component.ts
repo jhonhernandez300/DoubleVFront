@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 //import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 //import { CloseDialogComponent } from '../close-dialog/close-dialog.component';
 import { iTarea } from '../../../interfaces/iTarea';
+import { UsuarioTransferService } from '../../../servicios/usuario-transfer.service';
+import { iUsuarioConRolDTO } from '../../../interfaces/iUsuarioConRolDTO';
 
 @Component({
   selector: 'app-crear-tarea',
@@ -16,18 +18,31 @@ export class CrearTareaComponent implements OnInit{
   myForm!: FormGroup; 
   submitted = false;
   tareaIdSeleccionada!: number;
+  usuario: iUsuarioConRolDTO | null = null;
+  selectedUsuarioId!: number;
   tareas: iTarea[] = [];
   
   constructor(
     private formBuilder: FormBuilder,
     private tareaService: TareaService,
     private router: Router,
-    public dialog: MatDialog    
+    public dialog: MatDialog,
+    private usuarioTransferService: UsuarioTransferService 
   ) {
     this.initializeForm();
   }
 
   ngOnInit(): void {   
+    this.usuarioTransferService.currentUsuario.subscribe(usuario => {
+      
+      if(usuario != null){
+        this.usuario = usuario;
+        console.log("En update ", this.usuario);
+        // this.myForm.patchValue(employee);
+        // console.log(this.myForm.value);
+        // this.selectedRoleId = employee.roleId; 
+      }      
+    });
   }
 
   private initializeForm(): void {
