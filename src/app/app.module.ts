@@ -24,8 +24,9 @@ import { CrearTareaComponent } from './componentes/tareas/crear-tarea/crear-tare
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ObtenerTodosComponent } from './componentes/usuarios/obtener-todos/obtener-todos.component';
 import { GuardarUsuarioComponent } from './componentes/usuarios/guardar-usuario/guardar-usuario.component';
-import { ConfirmDialogComponent } from '../app/componentes/confirm-dialog/confirm-dialog.component';
-import { CloseDialogComponent } from '../app/componentes/close-dialog/close-dialog.component';
+import { ConfirmDialogComponent } from './componentes/general/confirm-dialog/confirm-dialog.component';
+import { CloseDialogComponent } from './componentes/general/close-dialog/close-dialog.component';
+import { ObtenerTodasTareasComponent } from './componentes/tareas/obtener-todas-tareas/obtener-todas-tareas.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CloseDialogComponent } from '../app/componentes/close-dialog/close-dial
     ObtenerTodosComponent,
     GuardarUsuarioComponent,
     ConfirmDialogComponent,
-    CloseDialogComponent
+    CloseDialogComponent,
+    ObtenerTodasTareasComponent
   ],
   imports: [
     BrowserModule,

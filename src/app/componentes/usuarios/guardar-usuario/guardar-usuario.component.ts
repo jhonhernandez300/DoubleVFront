@@ -3,8 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-import { CloseDialogComponent } from '../../close-dialog/close-dialog.component';
+import { ConfirmDialogComponent } from '../../general/confirm-dialog/confirm-dialog.component';
+import { CloseDialogComponent } from '../../general/close-dialog/close-dialog.component';
 import { iUsuarioSinIdDTO } from '../../../interfaces/iUsuarioSinIdDTO';
 import { UsuarioTransferService } from '../../../servicios/usuario-transfer.service';
 import { RolService } from '../../../servicios/rol.service';

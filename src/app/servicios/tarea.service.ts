@@ -12,6 +12,15 @@ export class TareaService {
 
   constructor(private http: HttpClient) { }
 
+  ObtenerTareasConUsuarios(): Observable<any> {             
+    return this.http.get(`${this.apiUrl}/ObtenerTareasConUsuarios`).pipe(
+      catchError(error => {
+          console.error('Request error:', error);
+          return throwError(error);
+      })    
+    );    
+  }
+
   CrearTarea(tarea: iTareaDTO): Observable<any> {         
     console.log(tarea);
     return this.http.post(`${this.apiUrl}/CrearTarea`, tarea).pipe(
