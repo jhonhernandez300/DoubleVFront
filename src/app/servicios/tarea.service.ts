@@ -12,6 +12,15 @@ export class TareaService {
 
   constructor(private http: HttpClient) { }
 
+  BorrarTarea(id: number): Observable<any> {                
+    return this.http.delete(`${this.apiUrl}/BorrarTarea/${id}`).pipe(
+      catchError(error => {
+          console.error('Request error:', error);
+          return throwError(error);
+      })    
+    );    
+  }
+
   ObtenerTareasConUsuarios(): Observable<any> {             
     return this.http.get(`${this.apiUrl}/ObtenerTareasConUsuarios`).pipe(
       catchError(error => {

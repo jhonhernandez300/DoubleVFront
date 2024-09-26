@@ -3,8 +3,8 @@ import { iUsuarioCorto } from '../../../interfaces/iUsuarioCorto';
 import { iUsuarioConRolDTO } from '../../../interfaces/iUsuarioConRolDTO';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
-// import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-// import { CloseDialogComponent } from '../close-dialog/close-dialog.component';
+import { ConfirmDialogComponent } from '../../general/confirm-dialog/confirm-dialog.component';
+import { CloseDialogComponent } from '../../general/close-dialog/close-dialog.component';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,7 +20,7 @@ export class ObtenerTodosComponent implements OnInit {
   errorMessage: string = '';  
   showDiv = false;  
   userChoice = false;
-  displayedColumns: string[] = ['nombre', 'email', 'rolNombre', 'darTarea'];
+  displayedColumns: string[] = ['nombre', 'email', 'rolNombre', 'darTarea', 'delete'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
@@ -66,39 +66,39 @@ export class ObtenerTodosComponent implements OnInit {
   //   this.router.navigate(['/employee-update']);        
   // }
 
-  // delete(id: number) {
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent);
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.userChoice = result;  
-  //     if (this.userChoice) {
-  //       this.deleteEmployee(id);
-  //     }
-  //   });
-  // }
+  delete(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.userChoice = result;  
+      if (this.userChoice) {
+        this.deleteUsuario(id);
+      }
+    });
+  }
 
-  // deleteEmployee(id: number): void {
-  //   this.employeeService.DeleteEmployee(id).subscribe(
-  //     (response: any) => {
-  //       if (response.message === "Employee not found with that id") {
-  //         this.dialog.open(CloseDialogComponent, {
-  //           data: { message: response.message } 
-  //         });
-  //       } else {          
-  //         this.dialog.open(CloseDialogComponent, {            
-  //           data: { message: "Employee deleted" } 
-  //         });
-  //         this.updateEmployees(id);
-  //       }
-  //     },
-  //     (error: any) => {
-  //       this.handleError(error);
-  //     }
-  //   );
-  // }
+  deleteUsuario(id: number): void {
+    this.usuarioService.BorrarUsuario(id).subscribe(
+      (response: any) => {
+        if (response.message != "Usuario y sus tareas asociadas eliminados exitosamente.") {
+          this.dialog.open(CloseDialogComponent, {
+            data: { message: response.message } 
+          });
+        } else {          
+          this.dialog.open(CloseDialogComponent, {            
+            data: { message: "Usuario borrado" } 
+          });
+          this.updateUsuarios(id);
+        }
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
 
-  // private updateEmployees(id: number): void {
-  //   this.dataSource.data = this.dataSource.data.filter(employee => employee.id !== id);
-  // }
+  private updateUsuarios(id: number): void {
+    this.dataSource.data = this.dataSource.data.filter(usuario => usuario.usuarioId !== id);
+  }
 
   private handleEmpty(message: string): void {
     this.errorMessage = message;

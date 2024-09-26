@@ -8,10 +8,10 @@ import { ObtenerTodasTareasComponent } from '../app/componentes/tareas/obtener-t
 const routes: Routes = [
   { path: 'obtener-todas-tareas', component: ObtenerTodasTareasComponent },
   { path: 'guardar-usuario', component: GuardarUsuarioComponent },
-  { path: 'employees-get-all', component: ObtenerTodosComponent },
+  { path: 'obtener-todos-usuarios', component: ObtenerTodosComponent },
   { path: 'crear-tarea', component: CrearTareaComponent },
-  { path: '**', component: CrearTareaComponent },
-  { path: '', component: CrearTareaComponent } 
+  { path: '**', component: ObtenerTodasTareasComponent },
+  { path: '', component: ObtenerTodasTareasComponent } 
 ];
 
 @NgModule({

@@ -14,6 +14,15 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  BorrarUsuario(id: number): Observable<any> {             
+    return this.http.delete(`${this.apiUrl}/BorrarUsuario` + "/" + id).pipe(
+      catchError(error => {
+          console.error('Request error:', error);
+          return throwError(error);
+      })    
+    );    
+  }
+
   CrearUsuario(usuario: iUsuarioSinIdDTO): Observable<any> {             
     return this.http.post(`${this.apiUrl}/CrearUsuario`, usuario).pipe(
       catchError(error => {

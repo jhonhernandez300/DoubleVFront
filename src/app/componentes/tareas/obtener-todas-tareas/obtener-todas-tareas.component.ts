@@ -20,7 +20,7 @@ export class ObtenerTodasTareasComponent implements OnInit {
   errorMessage: string = '';  
   showDiv = false;  
   userChoice = false;
-  displayedColumns: string[] = ['descripcion', 'estado', 'usuarioNombre'];
+  displayedColumns: string[] = ['descripcion', 'estado', 'usuarioNombre', 'delete'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
@@ -61,39 +61,39 @@ export class ObtenerTodasTareasComponent implements OnInit {
   //   this.router.navigate(['/employee-update']);        
   // }
 
-  // delete(id: number) {
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent);
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.userChoice = result;  
-  //     if (this.userChoice) {
-  //       this.deleteEmployee(id);
-  //     }
-  //   });
-  // }
+  delete(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.userChoice = result;  
+      if (this.userChoice) {
+        this.deleteTarea(id);
+      }
+    });
+  }
 
-  // deleteEmployee(id: number): void {
-  //   this.employeeService.DeleteEmployee(id).subscribe(
-  //     (response: any) => {
-  //       if (response.message === "Employee not found with that id") {
-  //         this.dialog.open(CloseDialogComponent, {
-  //           data: { message: response.message } 
-  //         });
-  //       } else {          
-  //         this.dialog.open(CloseDialogComponent, {            
-  //           data: { message: "Employee deleted" } 
-  //         });
-  //         this.updateEmployees(id);
-  //       }
-  //     },
-  //     (error: any) => {
-  //       this.handleError(error);
-  //     }
-  //   );
-  // }
+  deleteTarea(id: number): void {    
+    this.tareaService.BorrarTarea(id).subscribe(
+      (response: any) => {
+        if (response.message != "Tarea eliminada exitosamente.") {
+          this.dialog.open(CloseDialogComponent, {
+            data: { message: response.message } 
+          });
+        } else {          
+          this.dialog.open(CloseDialogComponent, {            
+            data: { message: "Tarea borrada" } 
+          });
+          this.updateTareas(id);
+        }
+      },
+      (error: any) => {
+        this.handleError(error);
+      }
+    );
+  }
 
-  // private updateEmployees(id: number): void {
-  //   this.dataSource.data = this.dataSource.data.filter(employee => employee.id !== id);
-  // }
+  private updateTareas(id: number): void {    
+    this.dataSource.data = this.dataSource.data.filter(tarea => tarea.tareaId !== id);
+  }
 
   private handleEmpty(message: string): void {
     this.errorMessage = message;
