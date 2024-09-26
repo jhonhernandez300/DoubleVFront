@@ -3,8 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { TareaService } from '../../../servicios/tarea.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-//import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-//import { CloseDialogComponent } from '../close-dialog/close-dialog.component';
+import { ConfirmDialogComponent } from '../../general/confirm-dialog/confirm-dialog.component';
+import { CloseDialogComponent } from '../../general/close-dialog/close-dialog.component';
 import { iTarea } from '../../../interfaces/iTarea';
 import { UsuarioTransferService } from '../../../servicios/usuario-transfer.service';
 import { iUsuarioConRolDTO } from '../../../interfaces/iUsuarioConRolDTO';
@@ -12,7 +12,7 @@ import { iUsuarioConRolDTO } from '../../../interfaces/iUsuarioConRolDTO';
 @Component({
   selector: 'app-crear-tarea',
   templateUrl: './crear-tarea.component.html',
-  styleUrl: './crear-tarea.component.css'
+  styleUrls: ['./crear-tarea.component.css']
 })
 export class CrearTareaComponent implements OnInit{
   myForm!: FormGroup; 
@@ -33,6 +33,8 @@ export class CrearTareaComponent implements OnInit{
   }
 
   ngOnInit(): void {   
+    this.initializeForm();
+    
     this.usuarioTransferService.currentUsuario.subscribe(usuario => {
       
       if(usuario != null){
@@ -66,25 +68,25 @@ export class CrearTareaComponent implements OnInit{
     console.log("Form value ", this.myForm.value);        
 
     if (this.myForm.invalid) {
-      console.log('Error de validación')          
-      // this.dialog.open(CloseDialogComponent, {            
-      //   data: { message: "Check the values of the form" } 
-      // });
+      //console.log('Error de validación');
+      this.dialog.open(CloseDialogComponent, {            
+        data: { message: "Revise los valores del formulario" } 
+      });
       return;
     }             
     
     this.tareaService.CrearTarea(this.myForm.value).subscribe({
       next: (response: any) => {
-          console.log('response', response);
-          // this.dialog.open(CloseDialogComponent, {            
-          //   data: { message: "Employee created" } 
-          // });
+          //console.log('response', response);
+          this.dialog.open(CloseDialogComponent, {            
+            data: { message: "Tarea creada" } 
+          });
       },
       error: (error: any) => {
-          console.error('Request error:', error);
-          // this.dialog.open(CloseDialogComponent, {            
-          //   data: { message: error } 
-          // });
+          //console.error('Request error:', error);
+          this.dialog.open(CloseDialogComponent, {            
+            data: { message: error } 
+          });
       }
   });     
   }

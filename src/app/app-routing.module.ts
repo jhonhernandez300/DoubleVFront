@@ -10,8 +10,8 @@ const routes: Routes = [
   { path: 'guardar-usuario', component: GuardarUsuarioComponent },
   { path: 'employees-get-all', component: ObtenerTodosComponent },
   { path: 'crear-tarea', component: CrearTareaComponent },
-  { path: '**', component: ObtenerTodasTareasComponent },
-  { path: '', component: ObtenerTodasTareasComponent } 
+  { path: '**', component: CrearTareaComponent },
+  { path: '', component: CrearTareaComponent } 
 ];
 
 @NgModule({

@@ -27,6 +27,7 @@ import { GuardarUsuarioComponent } from './componentes/usuarios/guardar-usuario/
 import { ConfirmDialogComponent } from './componentes/general/confirm-dialog/confirm-dialog.component';
 import { CloseDialogComponent } from './componentes/general/close-dialog/close-dialog.component';
 import { ObtenerTodasTareasComponent } from './componentes/tareas/obtener-todas-tareas/obtener-todas-tareas.component';
+import { MenuComponent } from './componentes/general/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ObtenerTodasTareasComponent } from './componentes/tareas/obtener-todas-
     GuardarUsuarioComponent,
     ConfirmDialogComponent,
     CloseDialogComponent,
-    ObtenerTodasTareasComponent
+    ObtenerTodasTareasComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
