@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TareaTransferService } from '../../../servicios/tarea-transfer.service';
+import { iTareaConUsuarioDTO } from '../../../interfaces/iTareaConUsuarioDTO';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TareaService } from '../../../servicios/tarea.service';
 import { Router } from '@angular/router';
@@ -6,49 +8,47 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../general/confirm-dialog/confirm-dialog.component';
 import { CloseDialogComponent } from '../../general/close-dialog/close-dialog.component';
 import { iTarea } from '../../../interfaces/iTarea';
-import { UsuarioTransferService } from '../../../servicios/usuario-transfer.service';
 import { iUsuarioConRolDTO } from '../../../interfaces/iUsuarioConRolDTO';
 
 @Component({
-  selector: 'app-crear-tarea',
-  templateUrl: './crear-tarea.component.html',
-  styleUrls: ['./crear-tarea.component.css']
+  selector: 'app-actualizar-tarea',
+  templateUrl: './actualizar-tarea.component.html',
+  styleUrl: './actualizar-tarea.component.css'
 })
-export class CrearTareaComponent implements OnInit{
-  myForm!: FormGroup; 
+export class ActualizarTareaComponent implements OnInit{
+  tarea: iTareaConUsuarioDTO | null = null;
+  myForm!: FormGroup;
+  selectedEstadoId!: number;
   submitted = false;
-  tareaIdSeleccionada!: number;
-  usuario: iUsuarioConRolDTO | null = null;
-  selectedUsuarioId!: number;
-  tareas: iTarea[] = [];
-  
+  tareaIdSeleccionado!: number;    
+  estados = ['Pendiente', 'En proceso', 'Completado'];
+
   constructor(
+    private tareaTransferService: TareaTransferService,
     private formBuilder: FormBuilder,
     private tareaService: TareaService,
     private router: Router,
-    public dialog: MatDialog,
-    private usuarioTransferService: UsuarioTransferService 
-  ) {
-    this.initializeForm();
-  }
+    public dialog: MatDialog
+  ){this.initializeForm();}
 
-  ngOnInit(): void {   
-    this.initializeForm();
-    
-    this.usuarioTransferService.currentUsuario.subscribe(usuario => {
+  ngOnInit() {
+    this.tareaTransferService.currentTarea.subscribe(tarea => {
       
-      if(usuario != null){
-        this.usuario = usuario;
-        console.log("En update ", this.usuario);    
+      if(tarea != null){
+        this.tarea = tarea;
+        //console.log("En update ", this.tarea);
+        this.myForm.patchValue(tarea);        
       }      
-    });
+    });    
+    this.initializeForm();
   }
-
   private initializeForm(): void {
     this.myForm = this.formBuilder.group({                                
-      tareaId: [0],
-      descripcion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      usuarioId: [0]
+      tareaId: [this.tarea?.tareaId],
+      descripcion: [this.tarea?.descripcion,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      estado: [this.tarea?.estado],
+      usuarioId: [this.tarea?.usuarioId],
+      usuarioNombre: [this.tarea?.usuarioNombre]
     });
   }
 
@@ -58,11 +58,8 @@ export class CrearTareaComponent implements OnInit{
   }
 
   public async onSubmit(): Promise<void> {
-    this.submitted = true;
-    this.myForm.patchValue({
-      usuarioId: null 
-    });
-    console.log("Form value ", this.myForm.value);        
+    this.submitted = true;   
+    //console.log("Form value ", this.myForm.value);        
 
     if (this.myForm.invalid) {
       //console.log('Error de validación');
@@ -72,15 +69,16 @@ export class CrearTareaComponent implements OnInit{
       return;
     }             
     
-    this.tareaService.CrearTarea(this.myForm.value).subscribe({
+    this.tareaService.ActualizarTarea(this.myForm.value).subscribe({
       next: (response: any) => {
-          //console.log('response', response);
+          console.log('response', response);
           this.dialog.open(CloseDialogComponent, {            
-            data: { message: "Tarea creada" } 
+            data: { message: "Tarea actualizada" } 
           });
+          this.myForm.reset();
       },
       error: (error: any) => {
-          //console.error('Request error:', error);
+          console.error('Error en el componente:', error);
           this.dialog.open(CloseDialogComponent, {            
             data: { message: error } 
           });

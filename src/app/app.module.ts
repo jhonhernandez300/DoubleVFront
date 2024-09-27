@@ -28,6 +28,7 @@ import { ConfirmDialogComponent } from './componentes/general/confirm-dialog/con
 import { CloseDialogComponent } from './componentes/general/close-dialog/close-dialog.component';
 import { ObtenerTodasTareasComponent } from './componentes/tareas/obtener-todas-tareas/obtener-todas-tareas.component';
 import { MenuComponent } from './componentes/general/menu/menu.component';
+import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/actualizar-tarea.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MenuComponent } from './componentes/general/menu/menu.component';
     ConfirmDialogComponent,
     CloseDialogComponent,
     ObtenerTodasTareasComponent,
-    MenuComponent
+    MenuComponent,
+    ActualizarTareaComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import { CloseDialogComponent } from '../../general/close-dialog/close-dialog.co
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-//import { UsuarioTransferService } from '../../../servicios/usuario-transfer.service';
+import { TareaTransferService } from '../../../servicios/tarea-transfer.service';
 
 @Component({
   selector: 'app-obtener-todas-tareas',
@@ -20,15 +20,15 @@ export class ObtenerTodasTareasComponent implements OnInit {
   errorMessage: string = '';  
   showDiv = false;  
   userChoice = false;
-  displayedColumns: string[] = ['descripcion', 'estado', 'usuarioNombre', 'delete'];
+  displayedColumns: string[] = ['descripcion', 'estado', 'usuarioNombre', 'delete', 'update'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
   constructor(
     private router: Router,    
     private tareaService: TareaService, 
-    public dialog: MatDialog
-    //public usuarioTransferService: UsuarioTransferService
+    public dialog: MatDialog,
+    public tareaTransferService: TareaTransferService
   ) { }
 
   ngOnInit(): void {
@@ -56,10 +56,10 @@ export class ObtenerTodasTareasComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
  
-  // update(employee: iEmployeeRole) {
-  //   this.employeeDataTransferService.changeEmployee(employee);
-  //   this.router.navigate(['/employee-update']);        
-  // }
+  update(tarea: iTareaConUsuarioDTO) {
+    this.tareaTransferService.changeTarea(tarea);
+    this.router.navigate(['/actualizar-tarea']);        
+  }
 
   delete(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);

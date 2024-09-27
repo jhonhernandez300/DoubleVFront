@@ -32,6 +32,13 @@
               <button mat-raised-button color="warn" (click)="delete(tarea.tareaId)">Borrar</button>
             </td>
           </ng-container>
+
+          <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tarea">
+              <button mat-raised-button color="primary" (click)="update(tarea)">Actualizar</button>
+            </td>
+          </ng-container>
   
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
