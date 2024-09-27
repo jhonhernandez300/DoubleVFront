@@ -29,6 +29,8 @@ import { CloseDialogComponent } from './componentes/general/close-dialog/close-d
 import { ObtenerTodasTareasComponent } from './componentes/tareas/obtener-todas-tareas/obtener-todas-tareas.component';
 import { MenuComponent } from './componentes/general/menu/menu.component';
 import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/actualizar-tarea.component';
+import { LoginComponent } from './componentes/general/login/login.component';
+import { AuthInterceptorService } from '../app/servicios/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/
     CloseDialogComponent,
     ObtenerTodasTareasComponent,
     MenuComponent,
-    ActualizarTareaComponent
+    ActualizarTareaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,12 @@ import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/
     MatIconModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

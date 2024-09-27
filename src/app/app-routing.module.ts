@@ -5,15 +5,18 @@ import { ObtenerTodosComponent } from '../app/componentes/usuarios/obtener-todos
 import { GuardarUsuarioComponent } from '../app/componentes/usuarios/guardar-usuario/guardar-usuario.component';
 import { ObtenerTodasTareasComponent } from '../app/componentes/tareas/obtener-todas-tareas/obtener-todas-tareas.component';
 import { ActualizarTareaComponent } from '../app/componentes/tareas/actualizar-tarea/actualizar-tarea.component';
+import { LoginComponent } from '../app/componentes/general/login/login.component';
+import { authGuard } from '../app/helpers/auth.guard';
 
 const routes: Routes = [
-  { path: 'actualizar-tarea', component: ActualizarTareaComponent },
-  { path: 'obtener-todas-tareas', component: ObtenerTodasTareasComponent },
-  { path: 'guardar-usuario', component: GuardarUsuarioComponent },
-  { path: 'obtener-todos-usuarios', component: ObtenerTodosComponent },
-  { path: 'crear-tarea', component: CrearTareaComponent },
-  { path: '**', component: ObtenerTodasTareasComponent },
-  { path: '', component: ObtenerTodasTareasComponent } 
+  { path: 'login', component: LoginComponent },
+  { path: 'actualizar-tarea', component: ActualizarTareaComponent, canActivate: [authGuard] },
+  { path: 'obtener-todas-tareas', component: ObtenerTodasTareasComponent, canActivate: [authGuard] },
+  { path: 'guardar-usuario', component: GuardarUsuarioComponent, canActivate: [authGuard] },
+  { path: 'obtener-todos-usuarios', component: ObtenerTodosComponent, canActivate: [authGuard] },
+  { path: 'crear-tarea', component: CrearTareaComponent, canActivate: [authGuard] },
+  { path: '**', component: LoginComponent },
+  { path: '', component: LoginComponent } 
 ];
 
 @NgModule({
