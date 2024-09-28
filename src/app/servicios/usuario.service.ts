@@ -16,8 +16,28 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) { }
 
-  Login(login: iLogin): Observable<any> {        
-    console.log("En el servicio ", login);     
+  ObtenerRol(): string {    
+    return this.sessionStorageService.getData('rol');
+  }
+
+  public getDecodedAccessToken(token: string): any {
+    if (token) {
+      // Obtén la parte del payload
+      const jwtData = token.split('.')[1]; 
+      // Decodifica en base64
+      const decodedJwtJsonData = window.atob(jwtData); 
+      return JSON.parse(decodedJwtJsonData); 
+    }
+    return null;
+  }
+  
+  public getRoleFromToken(token: string): string | null {
+    const decodedToken = this.getDecodedAccessToken(token);    
+    const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];    
+    return role ? role : null; 
+  }
+
+  Login(login: iLogin): Observable<any> {            
     return this.http.post(`${this.apiUrl}/Login`, login).pipe(
       catchError(error => {
           console.error('Request error:', error);
@@ -84,5 +104,3 @@ export class UsuarioService {
     }
   }
 }
-
-

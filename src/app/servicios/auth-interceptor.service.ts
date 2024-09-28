@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       const token = this.sessionStorageService.getData("token");
 
       if (token) {          
-        console.log(this.isTokenExpired(token));
+        //console.log("En el interceptor isTokenExpired", this.isTokenExpired(token));
           if (this.isTokenExpired(token)) {              
               this.router.navigate(['/login']);
               return next.handle(req); 

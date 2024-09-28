@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { TareaTransferService } from '../../../servicios/tarea-transfer.service';
+import { UsuarioService } from '../../../servicios/usuario.service';
 
 @Component({
   selector: 'app-obtener-todas-tareas',
@@ -20,6 +21,7 @@ export class ObtenerTodasTareasComponent implements OnInit {
   errorMessage: string = '';  
   showDiv = false;  
   userChoice = false;
+  rol: string = '';
   displayedColumns: string[] = ['descripcion', 'estado', 'usuarioNombre', 'delete', 'update'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
@@ -28,10 +30,12 @@ export class ObtenerTodasTareasComponent implements OnInit {
     private router: Router,    
     private tareaService: TareaService, 
     public dialog: MatDialog,
-    public tareaTransferService: TareaTransferService
+    public tareaTransferService: TareaTransferService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
+    this.rol = this.usuarioService.ObtenerRol();
     this.loadAllTareas();
   }
 

@@ -9,11 +9,20 @@ export const authGuard: CanActivateFn = (
 ): boolean | UrlTree => {
   const usuarioService = inject(UsuarioService);
   const router = inject(Router);
+    
+  if (!usuarioService.IsAuthenticated()) {
+    // Redirigir al login si no está autenticado
+    return router.createUrlTree(['/login']);
+  }  
   
-  if (usuarioService.IsAuthenticated()) {
-    //console.log(employeeService.IsAuthenticated());
-    return true;
-  } else {    
-    return router.createUrlTree(['/login']); 
+  const expectedRoles: string[] = route.data['expectedRole'];
+  const userRole = usuarioService.ObtenerRol().trim().toLowerCase();
+  
+  if (expectedRoles.map(role => role.toLowerCase()).includes(userRole)) {
+    // Permitir acceso
+    return true; 
+  } else {
+    // Redirigir a una página de acceso denegado si no tiene el rol requerido
+    return router.createUrlTree(['/access-denied']);
   }
 };

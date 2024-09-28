@@ -7,16 +7,38 @@ import { ObtenerTodasTareasComponent } from '../app/componentes/tareas/obtener-t
 import { ActualizarTareaComponent } from '../app/componentes/tareas/actualizar-tarea/actualizar-tarea.component';
 import { LoginComponent } from '../app/componentes/general/login/login.component';
 import { authGuard } from '../app/helpers/auth.guard';
+import {AccessDeniedComponent } from '../app/componentes/general/access-denied/access-denied.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'actualizar-tarea', component: ActualizarTareaComponent, canActivate: [authGuard] },
-  { path: 'obtener-todas-tareas', component: ObtenerTodasTareasComponent, canActivate: [authGuard] },
-  { path: 'guardar-usuario', component: GuardarUsuarioComponent, canActivate: [authGuard] },
-  { path: 'obtener-todos-usuarios', component: ObtenerTodosComponent, canActivate: [authGuard] },
-  { path: 'crear-tarea', component: CrearTareaComponent, canActivate: [authGuard] },
-  { path: '**', component: LoginComponent },
-  { path: '', component: LoginComponent } 
+  { path: 'actualizar-tarea', component: ActualizarTareaComponent, 
+    canActivate: [authGuard],
+    data: { expectedRole: ['administrador', 'Supervisor', 'Empleado'] }
+  },
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent
+  },
+  { path: 'obtener-todas-tareas', component: ObtenerTodasTareasComponent, 
+    canActivate: [authGuard],
+    data: { expectedRole: ['administrador', 'Supervisor', 'Empleado'] }
+  },
+  { path: 'guardar-usuario', component: GuardarUsuarioComponent, 
+    canActivate: [authGuard],
+    data: { expectedRole: 'administrador' }
+  },
+  { path: 'obtener-todos-usuarios', component: ObtenerTodosComponent, 
+    canActivate: [authGuard],
+    data: { expectedRole: ['administrador', 'Supervisor', 'Empleado'] }
+  },
+  { path: 'crear-tarea', component: CrearTareaComponent, 
+    canActivate: [authGuard],
+    data: { expectedRole: 'administrador' }
+  },
+  { path: '**', component: LoginComponent,
+    data: { expectedRole: ['administrador', 'Supervisor', 'Empleado'] } },
+  { path: '', component: LoginComponent,
+    data: { expectedRole: ['administrador', 'Supervisor', 'Empleado'] } } 
 ];
 
 @NgModule({

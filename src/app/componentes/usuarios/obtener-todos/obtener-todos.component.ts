@@ -20,6 +20,7 @@ export class ObtenerTodosComponent implements OnInit {
   errorMessage: string = '';  
   showDiv = false;  
   userChoice = false;
+  rol: string = '';
   displayedColumns: string[] = ['nombre', 'email', 'rolNombre', 'darTarea', 'delete'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
@@ -32,6 +33,8 @@ export class ObtenerTodosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.rol = this.usuarioService.ObtenerRol();
+    //console.log("rol ", this.rol);
     this.loadAllUsers();
   }
 

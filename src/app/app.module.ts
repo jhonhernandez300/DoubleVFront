@@ -31,6 +31,7 @@ import { MenuComponent } from './componentes/general/menu/menu.component';
 import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/actualizar-tarea.component';
 import { LoginComponent } from './componentes/general/login/login.component';
 import { AuthInterceptorService } from '../app/servicios/auth-interceptor.service';
+import { AccessDeniedComponent } from './componentes/general/access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AuthInterceptorService } from '../app/servicios/auth-interceptor.servic
     ObtenerTodasTareasComponent,
     MenuComponent,
     ActualizarTareaComponent,
-    LoginComponent
+    LoginComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
