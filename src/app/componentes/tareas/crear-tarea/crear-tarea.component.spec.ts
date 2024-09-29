@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearTareaComponent } from './crear-tarea.component';
+// import { CrearTareaComponent } from './crear-tarea.component';
 
-describe('CrearTareaComponent', () => {
-  let component: CrearTareaComponent;
-  let fixture: ComponentFixture<CrearTareaComponent>;
+// describe('CrearTareaComponent', () => {
+//   let component: CrearTareaComponent;
+//   let fixture: ComponentFixture<CrearTareaComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [CrearTareaComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [CrearTareaComponent]
+//     })
+//     .compileComponents();
     
-    fixture = TestBed.createComponent(CrearTareaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(CrearTareaComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

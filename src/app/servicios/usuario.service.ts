@@ -12,7 +12,7 @@ import { SessionStorageService } from '../servicios/session-storage.service';
 })
 export class UsuarioService {
 
-  private apiUrl = 'https://localhost:7136/api/Usuarios'; 
+  public apiUrl = 'https://localhost:7136/api/Usuarios'; 
 
   constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) { }
 
@@ -89,7 +89,7 @@ export class UsuarioService {
     return true; 
   }  
 
-  private isTokenExpired(token: string): boolean {
+  public isTokenExpired(token: string): boolean {
     try {      
       const payload = JSON.parse(atob(token.split('.')[1])); 
       const expiry = payload.exp; 
