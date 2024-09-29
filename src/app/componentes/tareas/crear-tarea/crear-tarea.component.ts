@@ -39,16 +39,16 @@ export class CrearTareaComponent implements OnInit{
       
       if(usuario != null){
         this.usuario = usuario;
-        console.log("En update ", this.usuario);    
+        //console.log("En update ", this.usuario);    
       }      
     });
   }
 
   private initializeForm(): void {
-    this.myForm = this.formBuilder.group({                                
-      tareaId: [0],
+    this.myForm = this.formBuilder.group({                                      
       descripcion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      usuarioId: [0]
+      estado: ['En Proceso'],
+      usuarioId: ['']
     });
   }
 
@@ -62,7 +62,7 @@ export class CrearTareaComponent implements OnInit{
     this.myForm.patchValue({
       usuarioId: null 
     });
-    console.log("Form value ", this.myForm.value);        
+    //console.log("Form value ", this.myForm.value);        
 
     if (this.myForm.invalid) {
       //console.log('Error de validación');
@@ -71,6 +71,11 @@ export class CrearTareaComponent implements OnInit{
       });
       return;
     }             
+    
+    this.myForm.patchValue({
+      usuarioId: this.usuario?.usuarioId
+    });
+    //console.log("form values ", this.myForm.value);
     
     this.tareaService.CrearTarea(this.myForm.value).subscribe({
       next: (response: any) => {

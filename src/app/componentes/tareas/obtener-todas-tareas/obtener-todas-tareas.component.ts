@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { TareaTransferService } from '../../../servicios/tarea-transfer.service';
 import { UsuarioService } from '../../../servicios/usuario.service';
+import { SessionStorageService } from '../../../servicios/session-storage.service';
 
 @Component({
   selector: 'app-obtener-todas-tareas',
@@ -31,7 +32,8 @@ export class ObtenerTodasTareasComponent implements OnInit {
     private tareaService: TareaService, 
     public dialog: MatDialog,
     public tareaTransferService: TareaTransferService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private sessionStorageService: SessionStorageService
   ) { }
 
   ngOnInit(): void {
@@ -44,9 +46,15 @@ export class ObtenerTodasTareasComponent implements OnInit {
       (response: any) => {
         if (response.message != "Tareas obtenidas exitosamente.") {
           this.handleEmpty(response.data);
-        } else {                    
+        } else {           
           this.dataSource.data = response.data; // Actualiza la tabla con los datos recibidos
           this.dataSource.paginator = this.paginator; // Conecta el paginador
+
+          console.log("rol ", this.rol);
+          if(this.rol == "Empleado"){
+            const id = Number(this.sessionStorageService.getData("id"));
+            this.dataSource.data = response.data.filter((tarea: iTareaConUsuarioDTO) => tarea.usuarioId === id);
+          }                    
         }
       },
       (error: any) => {

@@ -21,7 +21,7 @@ export class ObtenerTodosComponent implements OnInit {
   showDiv = false;  
   userChoice = false;
   rol: string = '';
-  displayedColumns: string[] = ['nombre', 'email', 'rolNombre', 'darTarea', 'delete'];
+  displayedColumns: string[] = ['nombre', 'email', 'rolNombre', 'darTarea', 'delete', 'update'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
@@ -44,8 +44,10 @@ export class ObtenerTodosComponent implements OnInit {
         if (response.message === "No se encontraron usuarios") {
           this.handleEmpty(response.message);
         } else {                    
-          this.dataSource.data = response.usuarios; // Actualiza la tabla con los datos recibidos
-          this.dataSource.paginator = this.paginator; // Conecta el paginador
+           // Actualiza la tabla con los datos recibidos
+          this.dataSource.data = response.usuarios;
+          // Conecta el paginador
+          this.dataSource.paginator = this.paginator; 
         }
       },
       (error: any) => {
@@ -64,10 +66,10 @@ export class ObtenerTodosComponent implements OnInit {
     this.router.navigate(['/crear-tarea']);        
   }
 
-  // update(employee: iEmployeeRole) {
-  //   this.employeeDataTransferService.changeEmployee(employee);
-  //   this.router.navigate(['/employee-update']);        
-  // }
+  update(usuario: iUsuarioConRolDTO) {
+    this.usuarioTransferService.changeUsuario(usuario);
+    this.router.navigate(['/usuario-actualizar']);        
+  }
 
   delete(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);

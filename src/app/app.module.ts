@@ -32,6 +32,7 @@ import { ActualizarTareaComponent } from './componentes/tareas/actualizar-tarea/
 import { LoginComponent } from './componentes/general/login/login.component';
 import { AuthInterceptorService } from '../app/servicios/auth-interceptor.service';
 import { AccessDeniedComponent } from './componentes/general/access-denied/access-denied.component';
+import { ActualizarUsuarioComponent } from './componentes/usuarios/actualizar-usuario/actualizar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AccessDeniedComponent } from './componentes/general/access-denied/acces
     MenuComponent,
     ActualizarTareaComponent,
     LoginComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    ActualizarUsuarioComponent
   ],
   imports: [
     BrowserModule,

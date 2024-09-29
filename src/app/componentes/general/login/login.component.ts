@@ -72,11 +72,13 @@ export class LoginComponent {
 
       this.usuarioService.Login(this.myForm.value).subscribe(
         (response: any) => {          
-          //console.log("En el componente ", response);
+          console.log("En el componente ", response);
           //Acceder al token con un servicio inyectado
           this.sessionStorageService.setToken('token', response.token);
           var tokenAdquirido = this.usuarioService.getRoleFromToken(response.token);
           this.sessionStorageService.setData('rol', tokenAdquirido);
+          var usuarioId = response.usuarioId;
+          this.sessionStorageService.setData('id', usuarioId);
           const currentDate = new Date();
           const dateString = currentDate.toISOString();        
           localStorage.setItem('last date', dateString);                    

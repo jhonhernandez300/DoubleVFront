@@ -3,6 +3,6 @@ export interface iUsuarioConRolDTO{
     nombre: string,
     email: string,    
     password: string,    
-    rolId: string,
-    ronNombre: string
+    rolId: number,
+    rolNombre: string
 }

@@ -4,6 +4,7 @@ import { iUsuario } from '../interfaces/iUsuario';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { iUsuarioSinIdDTO } from '../interfaces/iUsuarioSinIdDTO';
+import { iUsuarioConRolDTO } from '../interfaces/iUsuarioConRolDTO';
 import { iLogin } from '../interfaces/iLogin';
 import { SessionStorageService } from '../servicios/session-storage.service';
 
@@ -15,6 +16,15 @@ export class UsuarioService {
   public apiUrl = 'https://localhost:7136/api/Usuarios'; 
 
   constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) { }
+
+  ActualizarUsuario(usuario: iUsuarioConRolDTO): Observable<any> {             
+    return this.http.put(`${this.apiUrl}/ActualizarUsuario/${usuario.usuarioId}`, usuario).pipe(
+      catchError(error => {
+          console.error('Request error:', error);
+          return throwError(error);
+      })    
+    );    
+  }
 
   ObtenerRol(): string {    
     return this.sessionStorageService.getData('rol');

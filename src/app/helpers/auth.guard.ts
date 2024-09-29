@@ -15,7 +15,10 @@ export const authGuard: CanActivateFn = (
     return router.createUrlTree(['/login']);
   }  
   
-  const expectedRoles: string[] = route.data['expectedRole'];
+  // ExpectedRole sea siempre un array
+  const expectedRoles: string[] = Array.isArray(route.data['expectedRole'])
+    ? route.data['expectedRole']
+    : [route.data['expectedRole']];
   const userRole = usuarioService.ObtenerRol().trim().toLowerCase();
   
   if (expectedRoles.map(role => role.toLowerCase()).includes(userRole)) {

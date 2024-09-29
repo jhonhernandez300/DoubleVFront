@@ -6,10 +6,13 @@
   
       <mat-card-content>
         <!-- Campo de búsqueda -->
-        <mat-form-field appearance="outline">
-          <mat-label>Buscar</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar tareas">
-        </mat-form-field>
+        <mat-card-content>
+          <!-- Campo de búsqueda -->
+          <mat-form-field *ngIf="rol == 'Administrador' || rol == 'Supervisor'" appearance="outline">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar tareas">
+          </mat-form-field>
+        </mat-card-content>        
   
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">  
           <!-- Columnas -->
