@@ -51,7 +51,8 @@ export class UsuarioService {
     return this.http.post(`${this.apiUrl}/Login`, login).pipe(
       catchError(error => {
           console.error('Request error:', error);
-          return throwError(error);
+          const errorMessage = error?.error?.message || 'Error en la solicitud';
+          return throwError(() => new Error(errorMessage));
       })    
     );    
   }

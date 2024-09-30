@@ -86,6 +86,7 @@ export class LoginComponent {
         },
         (error: any) => {
           //console.error('Error:', error);
+          const errorMessage = error.message || 'Error en el inicio de sesión';
           this.dialog.open(CloseDialogComponent, {            
             data: { message: error } 
           });
